@@ -2,20 +2,38 @@ import React from 'react';
 import AddTask from './AddTask';
 
 const Task = () => {
-  const [inputValue, setInputValue] = React.useState([]);
+  const [inputValue, setInputValue] = React.useState('');
   const [tasks, setTasks] = React.useState([]);
   const [active, setActive] = React.useState(false);
+  const [activeAll, setActiveAll] = React.useState(false);
 
   const Add = () => {
-    setTasks([...tasks, { name: inputValue, checked: false }]);
+    setTasks([...tasks, { name: inputValue, checked: active }]);
     setInputValue('');
-    setActive('');
+    setActive(false);
   };
+
   const ClickActive = () => {
     setActive(!active);
   };
+  const doChange = (index) => {
+    const result = prompt('Вы точно хотите изменить задачу?');
+    setTasks(
+      tasks.map((task, i) => {
+        if (i === index) {
+          return {
+            ...task,
+            name: result,
+          };
+        }
+        return task;
+      }),
+    );
+  };
+
   const ClickActiveAll = () => {
-    setTasks(tasks.map((task) => ({ ...task, checked: true })));
+    setActiveAll(!activeAll);
+    setTasks(tasks.map((task) => ({ ...task, checked: !activeAll })));
   };
 
   const toggleTaskChecked = (index) => {
@@ -39,6 +57,7 @@ const Task = () => {
       setTasks(tasks.filter((_, i) => i !== index));
     }
   };
+
   const Clear = () => {
     if (window.confirm('Вы действительно хотите удалить?') === true) {
       setTasks([]);
@@ -51,7 +70,7 @@ const Task = () => {
         <h2>Список задач</h2>
         {active ? (
           <svg
-            style={{ marginTop: '20px' }}
+            style={{ marginTop: '24px' }}
             onClick={ClickActive}
             width="24"
             height="24"
@@ -62,14 +81,14 @@ const Task = () => {
           </svg>
         ) : (
           <svg
-            style={{ marginTop: '20px' }}
+            style={{ marginTop: '24px' }}
             onClick={ClickActive}
             width="24"
             height="24"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="11" fill="white" stroke="#DB4C3F" strokeWidth="2" />
+            <circle cx="12" cy="12" r="11" fill="white" stroke="#B8B8B8" stroke-width="2" />
           </svg>
         )}
         <input
@@ -77,31 +96,67 @@ const Task = () => {
           onChange={(event) => setInputValue(event.target.value)}
           placeholder="Введите текст задачи..."
         />
-        {active ? (
-          <button onClick={inputValue ? Add : ''} className="btn">
-            +
-          </button>
-        ) : (
-          ''
-        )}
-
+        <button onClick={inputValue ? Add : ''} className="btn">
+          +
+        </button>
+        <svg
+          className="geometriyaTask"
+          width="528"
+          viewBox="0 0 528 1"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <line y1="0.5" x2="528" y2="0.5" stroke="#F4F4F4" />
+        </svg>
         {tasks.map((task, index) => (
           <div key={index} className="addTask">
             <li style={{ listStyleType: 'none' }}>
-              <AddTask task={task} onChange={toggleTaskChecked} onRemove={onRemove} index={index} />
+              <AddTask
+                doChange={doChange}
+                activeAll={activeAll}
+                task={task}
+                onChange={toggleTaskChecked}
+                onRemove={onRemove}
+                index={index}
+              />
+              <svg
+                className="geometriyaTask"
+                width="528"
+                viewBox="0 0 528 1"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <line y1="0.5" x2="528" y2="0.5" stroke="#F4F4F4" />
+              </svg>
             </li>
           </div>
         ))}
       </div>
-      <hr className="geometriya" style={{ marginTop: '415px' }} />
-      <button onClick={ClickActiveAll} className="btn-1">
-        <img
-          className="ticks"
-          src="https://lumpics.ru/wp-content/uploads/2019/11/messendzher-viber-status-soobshheniya-dostavleno-.png"
-        />
-        Отметить все
-      </button>
 
+      <svg
+        className="geometriya"
+        style={{ marginTop: '420px' }}
+        width="528"
+        viewBox="0 0 528 1"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <line y1="0.5" x2="528" y2="0.5" stroke="#F4F4F4" />
+      </svg>
+      {activeAll ? (
+        <button onClick={ClickActiveAll} className="btn-1">
+          <img
+            className="ticks"
+            src="https://lumpics.ru/wp-content/uploads/2019/11/messendzher-viber-status-soobshheniya-dostavleno-.png"
+          />
+          Cнять все
+        </button>
+      ) : (
+        <button onClick={ClickActiveAll} className="btn-1">
+          <img
+            className="ticks"
+            src="https://lumpics.ru/wp-content/uploads/2019/11/messendzher-viber-status-soobshheniya-dostavleno-.png"
+          />
+          Отметить все
+        </button>
+      )}
       <button onClick={Clear} className="btn-2">
         <svg
           className="cross"

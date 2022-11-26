@@ -15,7 +15,7 @@
   position: absolute;
   width: 484px;
   height: 63px;
-  background: red;
+  background: #db4c3f;
   font-family: 'Roboto';
   border-radius: 5px;
   font-size: 15px;
@@ -29,13 +29,14 @@
   position: absolute;
   width: 380px;
   height: 50px;
-  margin-top: 6px;
+  margin-top: 10px;
   margin-left: 15px;
   border: 0;
   font-size: 20px;
 }
 .btn {
   position: absolute;
+  margin-top: 4px;
   width: 57px;
   height: 53px;
   left: 440px;
@@ -47,11 +48,12 @@
   cursor: pointer;
 }
 .btn-1 {
-  margin-top: 20px;
+  position: absolute;
+  margin-top: 13px;
   margin-left: 30px;
   width: 145px;
-  height: 38px;
-  left: 121px;
+  height: 45px;
+  color: #989898;
   background: #f9f9f9;
   border-radius: 30px;
   border: 0;
@@ -64,17 +66,27 @@
   width: 496px;
   margin-left: 21px;
 }
+.geometriyaTask {
+  border: 1px solid #f4f4f4;
+  position: relative;
+
+  right: 21px;
+  width: 496px;
+  margin-left: 6px;
+}
 .ticks {
   width: 16px;
   height: 8.56px;
   padding-right: 10px;
 }
 .btn-2 {
+  position: absolute;
   margin-left: 30px;
-  margin-top: 20px;
-  width: 145px;
-  height: 38px;
-  left: 121px;
+  margin-top: 15px;
+  width: 120px;
+  height: 45px;
+  left: 175px;
+  color: #989898;
   background: #f9f9f9;
   border-radius: 30px;
   border: 0;
@@ -83,7 +95,4 @@
 }
 .cross {
   padding-right: 10px;
-}
-.addTask {
-  margin-top: 10px;
 }
